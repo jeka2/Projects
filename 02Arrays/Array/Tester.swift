@@ -131,6 +131,14 @@ class Tester {
         [1, 4, 8, 4] -> [1, 2, 3, 2]
      */
     func reduceDistanceKeepPriority(array: [Int]) -> [Int] {
-        []
+        var tracker: [Int:Int] = [:]
+        for (i, val) in Set(array).sorted().enumerated() {
+            tracker[val] = i + 1
+        }
+        var returnArr: [Int] = []
+        for num in array {
+            returnArr.append(tracker[num]!)
+        }
+        return returnArr
     }
 }
