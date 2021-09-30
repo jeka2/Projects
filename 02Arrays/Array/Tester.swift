@@ -12,17 +12,18 @@ class Tester {
     
     /// 1. Write a function that takes an array of numbers and returns an array with each of the numbers multiplied by 2
     func multiplyByTwo(numbers original: [Int]) -> [Int] {
-        []
+        return original.map { $0 * 2 }
     }
 
     /// 2. Write a function to return the last half of the array, not including the median
     func lastHalf(array: [Int]) -> [Int] {
-        []
+        let halfwayIndex = array.count / 2
+        return Array(array.suffix(from: halfwayIndex + 1))
     }
 
     /// 3. Write a function that can creates an array populated with integers going from start (input) to end (input)
     func createArray(from start: Int, to end: Int) -> [Int] {
-        []
+        return Array(start...end)
     }
 
     /**
@@ -32,18 +33,30 @@ class Tester {
         [7,8,9]]
      */
     func create2DArray() -> [[Int]] {
-        [[]]
+        return [[1,2,3],[4,5,6],[7,8,9]]
     }
 
     /// 5. Write a function that returns the number of pairs of elements that sums up to 0
     /// Input [1,2,3,-1,-2,-4] -> Output 2
     func findPairs(nums: [Int]) -> Int {
-        1
+        var occurances = 0
+        for num in nums {
+            if(nums.contains(0 - num)) {
+                occurances += 1
+            }
+        }
+        return occurances / 2
     }
     
     /// 6. Returns an array of indexes where the char occurs in input word
     func positionsOf(character: Character, in word: String) -> [Int] {
-        []
+        var positions = [Int]()
+        for (i, char) in word.enumerated() {
+            if char.lowercased() == character.lowercased() {
+                positions.append(i)
+            }
+        }
+        return positions
     }
     
     /**
@@ -54,7 +67,19 @@ class Tester {
         Ex. [ I, I, O] -> 2
      */
     func minimumChairs(array: [Character]) -> Int {
-        1
+        var needed: Int = 0
+        var currentCount: Int = 0
+        for type in array {
+            if(type.uppercased() == "I") {
+                currentCount += 1
+        } else {
+            if(needed < currentCount) {
+                needed = currentCount
+            }
+            currentCount = 0
+            }
+        }
+        return needed
     }
     
     /// 8. Pig latin but with words separated by spaces
@@ -73,7 +98,19 @@ class Tester {
     
     
     func maxProfit(array: [Int]) -> Int {
-        1
+        var smallestNum = Int.max
+        var largestNum = 0
+        var smallestIndex = 0
+            for (i, price) in array.enumerated() {
+                if(price < smallestNum) {
+                    smallestNum = price
+                    smallestIndex = i
+                }
+                if(price > largestNum && i > smallestIndex) {
+                    largestNum = price
+                }
+            }
+        return largestNum - smallestNum
     }
     
     /**
