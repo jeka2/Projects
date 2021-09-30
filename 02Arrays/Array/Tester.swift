@@ -84,11 +84,23 @@ class Tester {
     
     /// 8. Pig latin but with words separated by spaces
     func pigLatinSentence(sentence: String) -> String {
-        ""
+        let wordArr = sentence.split(separator: " ")
+        var combineArr = [String]()
+        wordArr.forEach{ word in
+            combineArr.append(returnPigLatin(word: String(word)))
+        }
+        return combineArr.joined(separator: " ")
     }
     
     func returnPigLatin(word: String) -> String {
-        ""
+        let firstChar = word.prefix(1).lowercased()
+        var returnWord = word
+        if(firstChar == "a" || firstChar == "e" || firstChar == "i" || firstChar == "o" || firstChar == "u") {
+            return "\(returnWord)yay"
+        } else {
+            returnWord.removeFirst()
+            return "\(returnWord)\(firstChar)ay"
+        }
     }
     
     /**
