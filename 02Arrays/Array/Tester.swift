@@ -113,16 +113,20 @@ class Tester {
         var smallestNum = Int.max
         var largestNum = 0
         var smallestIndex = 0
-            for (i, price) in array.enumerated() {
-                if(price < smallestNum) {
-                    smallestNum = price
-                    smallestIndex = i
-                }
-                if(price > largestNum && i > smallestIndex) {
-                    largestNum = price
-                }
+        var maxProfit: Int = 0
+        
+        for (i, price) in array.enumerated() {
+            if(price < smallestNum) {
+                smallestNum = price
+                smallestIndex = i
             }
-        return largestNum - smallestNum
+            if(price > largestNum && i > smallestIndex) {
+                largestNum = price
+                
+                maxProfit = largestNum - smallestNum
+            }
+        }
+        return maxProfit
     }
     
     /**
