@@ -69,14 +69,17 @@ class Tester {
     func minimumChairs(array: [Character]) -> Int {
         var needed: Int = 0
         var currentCount: Int = 0
-        for type in array {
+        for (i, type) in array.enumerated() {
             if(type.uppercased() == "I") {
                 currentCount += 1
-        } else {
-            if(needed < currentCount) {
-                needed = currentCount
-            }
-            currentCount = 0
+                if(i + 1 == array.count) {
+                    needed = currentCount
+                }
+            } else {
+                if(needed < currentCount) {
+                    needed = currentCount
+                }
+                currentCount -= 1
             }
         }
         return needed
