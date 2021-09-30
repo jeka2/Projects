@@ -10,35 +10,63 @@ import Foundation
 struct Tester {
     /// Remove an array with the duplicated values removed
     func removeDups(nums: [Int]) -> [Int] {
-        
-        return []
+        return Array(Set(nums))
     }
     
     /// Find the nums that exist in both arrays
     func findCommonNums(from firstNums: [Int], and secondNums: [Int]) -> [Int] {
-        
-        return []
+        return Array(Set(firstNums).intersection(Set(secondNums)))
     }
     
     /// first: "hello", second: "bye" -> ["e"]
     func findMatchingLetters(firstWord: String, secondWord: String) -> [Character] {
-        return []
+        return Array(Set(firstWord).intersection(Set(secondWord)))
     }
     
     
     /// Create a dictionary of the counts of the letters, ignoring spaces
     func createCounter(string: String) -> [Character: Int] {
-        return [:]
+        var collector: [Character: Int] = [:]
+           for char in string {
+             if(collector[char] != nil) {
+                 collector[char]! += 1
+             } else if(char != " "){
+               collector[char] = 1
+             }
+           }
+           return collector
     }
     
     /// Find most frequent letter in string: "hello there" -> "e"
     func mostFrequentLetter(string: String) -> Character {
-        return "."
+        var collector: [Character: Int] = [:]
+           for char in string {
+             if(collector[char] != nil) {
+                 collector[char]! += 1
+             } else {
+               collector[char] = 1
+             }
+           }
+           var highestOccuranceRate = 0
+           var highestOccuranceChar = ""
+           for (char, occuranceCount) in collector {
+             if(occuranceCount > highestOccuranceRate) {
+               highestOccuranceRate = occuranceCount
+               highestOccuranceChar = String(char)
+             }
+           }
+           return Character(highestOccuranceChar)
     }
     
     /// O(n) time: avoid nested for loops
     func findPairs(nums: [Int]) -> Int {        
-        return 1
+        var counter = 0
+           for num in nums {
+             if(nums.contains(0 - num)) {
+               counter += 1
+             }
+           }
+           return counter / 2
     }
     
     /**
@@ -48,7 +76,15 @@ struct Tester {
      [1, 4, 8, 1] -> [1, 2, 3, 1]
      */
     func reduceDistanceKeepPriority(array: [Int]) -> [Int] {
-        return [1]
+        var tracker: [Int:Int] = [:]
+        for (i, val) in Set(array).sorted().enumerated() {
+            tracker[val] = i + 1
+        }
+        var returnArr: [Int] = []
+        for num in array {
+            returnArr.append(tracker[num]!)
+        }
+        return returnArr
     }
     
 }
