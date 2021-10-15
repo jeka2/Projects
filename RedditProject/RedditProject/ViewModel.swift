@@ -24,7 +24,6 @@ struct ViewModel {
             let request = URLRequest(url: url)
             
             URLSession.shared.dataTask(with: request) { data, error, response in
-                print("response completed") // point 3
                 
                 guard let data = data else {
                     return
@@ -37,7 +36,6 @@ struct ViewModel {
                 let responseData = response.data.children
                 completion(.success(responseData))
                 
-                print("closure called") // point 4
             }.resume()
             
             
